@@ -5,7 +5,7 @@
   by <a href="https://leadsontrees.com">leadsontrees.com</a>
 </h3>
 
-<video controls src="imgs/demo.mp4" title="Title"></video>
+![demo](imgs/demo.gif)
 
 # What is this about?
 
