@@ -1,0 +1,716 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>Company Intelligence Report by LeadsOnTrees Company Researcher</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            /* Modern color palette */
+            --primary-gradient: linear-gradient(135deg, #6366f1, #8b5cf6);
+            --secondary-gradient: linear-gradient(135deg, #3b82f6, #2dd4bf);
+            --success-gradient: linear-gradient(135deg, #10b981, #34d399);
+            --warning-gradient: linear-gradient(135deg, #f59e0b, #fbbf24);
+
+            /* Glassmorphism */
+            --glass-bg: rgba(255, 255, 255, 0.7);
+            --glass-border: rgba(255, 255, 255, 0.5);
+            --glass-shadow: rgba(31, 41, 55, 0.1);
+
+            /* Neomorphic shadows */
+            --neu-shadow-dark: #e2e8f0;
+            --neu-shadow-light: #ffffff;
+
+            /* Modern backgrounds */
+            --bg-gradient: linear-gradient(135deg, #f8fafc, #f1f5f9);
+            --card-gradient: linear-gradient(145deg, rgba(255, 255, 255, 0.9), rgba(255, 255, 255, 0.8));
+
+            /* Text colors */
+            --text-primary: #1e293b;
+            --text-secondary: #475569;
+            --text-accent: #6366f1;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            line-height: 1.6;
+            color: var(--text-primary);
+            background: var(--bg-gradient);
+            min-height: 100vh;
+            padding: 2rem;
+            backdrop-filter: blur(20px);
+        }
+
+        /* Modern container with max width */
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            position: relative;
+        }
+
+        /* Floating background elements */
+        .container::before,
+        .container::after {
+            content: '';
+            position: fixed;
+            width: 300px;
+            height: 300px;
+            border-radius: 50%;
+            filter: blur(100px);
+            opacity: 0.15;
+            z-index: -1;
+        }
+
+        .container::before {
+            background: #6366f1;
+            top: -100px;
+            left: -100px;
+        }
+
+        .container::after {
+            background: #2dd4bf;
+            bottom: -100px;
+            right: -100px;
+        }
+
+        /* Modern glassmorphism header */
+        .header {
+            text-align: center;
+            margin-bottom: 3rem;
+            padding: 3rem;
+            background: var(--glass-bg);
+            border-radius: 24px;
+            border: 1px solid var(--glass-border);
+            backdrop-filter: blur(20px);
+            box-shadow:
+                0 8px 32px var(--glass-shadow),
+                0 8px 32px var(--glass-shadow);
+        }
+
+        .header h1 {
+            font-size: 2rem;
+            font-weight: 800;
+            background: var(--primary-gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 0.5rem;
+        }
+
+        .report-subtitle {
+            font-size: 1.25rem;
+            font-weight: 500;
+            color: var(--text-secondary);
+            text-transform: lowercase;
+            letter-spacing: 0.1em;
+            margin-bottom: 0.75rem;
+        }
+
+        .company-link {
+            display: inline-block;
+            font-size: 0.875rem;
+            color: var(--text-accent);
+            text-decoration: none;
+            margin-bottom: 2rem;
+            opacity: 0.8;
+            transition: opacity 0.2s ease;
+        }
+
+        .company-link:hover {
+            opacity: 1;
+        }
+
+        .overview {
+            font-size: 1.5rem;
+            font-weight: 500;
+            color: var(--text-primary);
+            max-width: 800px;
+            margin: 0 auto;
+            line-height: 1.4;
+        }
+
+        .section {
+            background: var(--card-gradient);
+            border-radius: 16px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1);
+        }
+
+        .section-title {
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: var(--text-primary);
+            margin-bottom: 1.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .section-title::before {
+            content: '';
+            display: block;
+            width: 4px;
+            height: 24px;
+            background: var(--primary-gradient);
+            border-radius: 2px;
+        }
+
+        .grid-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .metric-card {
+            background: linear-gradient(145deg, #f8fafc, #ffffff);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            padding: 1.5rem;
+            transition: transform 0.2s;
+        }
+
+        .metric-card:hover {
+            transform: translateY(-2px);
+        }
+
+        .metric-title {
+            font-size: 1.125rem;
+            font-weight: 700;
+            background: var(--primary-gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            margin-bottom: 1rem;
+            position: relative;
+            padding-bottom: 0.75rem;
+            display: inline-block;
+        }
+
+        /* Modern underline effect */
+        .metric-title::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 2.5rem;
+            height: 3px;
+            background: var(--primary-gradient);
+            border-radius: 2px;
+            transition: width 0.3s ease;
+        }
+
+        /* Hover effect for the underline */
+        .metric-card:hover .metric-title::after {
+            width: 100%;
+        }
+
+        .metric-value {
+            font-size: 1.25rem;
+            font-weight: 500;
+            color: var(--text-primary);
+        }
+
+        .tech-tag {
+            display: inline-block;
+            background: var(--primary-gradient);
+            color: white;
+            padding: 0.25rem 0.75rem;
+            border-radius: 9999px;
+            font-size: 0.875rem;
+            font-weight: 500;
+            margin: 0.25rem;
+        }
+
+        .highlight-box {
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+            background: linear-gradient(145deg, #f8fafc, #ffffff);
+        }
+
+        .status-indicator {
+            display: inline-block;
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            margin-right: 0.5rem;
+        }
+
+        .status-positive {
+            background-color: var(--success-gradient);
+        }
+
+        .status-warning {
+            background-color: var(--warning-gradient);
+        }
+
+        ul {
+            list-style: none;
+        }
+
+        li {
+            position: relative;
+            padding-left: 1.5rem;
+            margin-bottom: 0.75rem;
+        }
+
+        li::before {
+            content: '•';
+            color: var(--primary-gradient);
+            font-weight: bold;
+            position: absolute;
+            left: 0;
+        }
+
+        .funding-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1rem;
+        }
+
+        .funding-card {
+            background: linear-gradient(145deg, #f8fafc, #ffffff);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            padding: 1.5rem;
+        }
+
+        .funding-amount {
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: var(--success-gradient);
+            margin-bottom: 0.5rem;
+        }
+
+        .job-card {
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+            background: linear-gradient(145deg, #f8fafc, #ffffff);
+        }
+
+        .job-title {
+            font-size: 1.25rem;
+            font-weight: 600;
+            color: var(--primary-gradient);
+            margin-bottom: 1rem;
+        }
+
+        .job-meta {
+            display: flex;
+            gap: 1.5rem;
+            margin-bottom: 1rem;
+            color: var(--text-secondary);
+            font-size: 0.875rem;
+        }
+
+        @media print {
+            body {
+                background: white;
+            }
+
+            .section {
+                break-inside: avoid;
+                page-break-inside: avoid;
+            }
+        }
+
+        .funding-timeline {
+            position: relative;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 2rem 0;
+        }
+
+        .funding-timeline::before {
+            content: '';
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 2px;
+            height: 100%;
+            background: var(--primary-gradient);
+            opacity: 0.3;
+            top: 0;
+        }
+
+        .funding-card {
+            position: relative;
+            margin: 2rem 0;
+            width: 100%;
+            display: flex;
+            align-items: center;
+        }
+
+        .funding-dot {
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 16px;
+            height: 16px;
+            border-radius: 50%;
+            background: var(--primary-gradient);
+            z-index: 2;
+        }
+
+        .funding-content {
+            width: 45%;
+            padding: 1.5rem;
+            background: var(--glass-bg);
+            border-radius: 12px;
+            border: 1px solid var(--glass-border);
+            backdrop-filter: blur(10px);
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease;
+        }
+
+        .funding-card:nth-child(odd) .funding-content {
+            margin-left: auto;
+            transform: translateX(-2rem);
+        }
+
+        .funding-card:nth-child(even) .funding-content {
+            margin-right: auto;
+            transform: translateX(2rem);
+        }
+
+        .funding-card:hover .funding-content {
+            transform: translateX(0);
+        }
+
+        .funding-amount {
+            font-size: 1.75rem;
+            font-weight: 700;
+            background: var(--primary-gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 0.5rem;
+        }
+
+        .funding-details {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .funding-round {
+            font-weight: 600;
+            color: var(--text-primary);
+            padding: 0.25rem 0.75rem;
+            background: rgba(99, 102, 241, 0.1);
+            border-radius: 20px;
+            font-size: 0.875rem;
+        }
+
+        .funding-date {
+            color: var(--text-secondary);
+            font-size: 0.875rem;
+        }
+
+        @media (max-width: 768px) {
+            .funding-timeline::before {
+                left: 0;
+            }
+
+            .funding-dot {
+                left: 0;
+            }
+
+            .funding-content {
+                width: 85%;
+                margin-left: auto !important;
+            }
+
+            .funding-card:nth-child(odd) .funding-content,
+            .funding-card:nth-child(even) .funding-content {
+                transform: translateX(-1rem);
+            }
+
+            .funding-card:hover .funding-content {
+                transform: translateX(-0.5rem);
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <!-- Header -->
+        <div class="header">
+            <h1>Home \ Anthropic</h1>
+            <div class="report-subtitle">company intelligence report</div>
+            <a href="https://www.leadsontrees.com" class="company-link">by leadsontrees.com</a>
+            <p class="overview">Anthropic focuses on advancing AI safety and reliability through its Claude model, targeting enterprises and developers looking for trustworthy AI solutions.</p>
+        </div>
+
+        <!-- Overview Section -->
+        <div class="section">
+            <h2 class="section-title">Executive Summary</h2>
+            <div class="highlight-box">
+                <p>Anthropic operates as an AI safety and research company, providing products like Claude, a series of advanced AI models. The company emphasizes an empirical, safety-first approach to development, aiming to create reliable, transparent AI systems that are aligned with human values. With a commitment to responsible AI practices, Anthropic integrates advanced technologies like machine learning and cloud infrastructure, fostering a dual focus on research and product development to address the needs of diverse sectors, including enterprise and governmental entities.</p>
+            </div>
+        </div>
+
+        <!-- Market Position -->
+        <div class="section">
+            <h2 class="section-title">Market Position & Growth</h2>
+            <div class="grid-container">
+                <div class="metric-card">
+                    <div class="metric-title">Growth Trajectory</div>
+                    <div class="metric-value">
+                        <span class="status-indicator status-positive"></span>
+                        With a strong emphasis on safety research and product development, Anthropic exhibits significant growth potential supported by recent funding and an expanding team that aligns with increasing industry demand for responsible AI solutions.
+                    </div>
+                </div>
+                <div class="metric-card">
+                    <div class="metric-title">Market Opportunity</div>
+                    <div class="metric-value">
+                        Anthropic&#39;s commitment to safe and reliable AI, combined with its innovative Claude models, positions it uniquely within the market, where the demand for trustworthy AI solutions is surging.
+                    </div>
+                </div>
+            </div>
+            <div class="highlight-box">
+                <div class="metric-title">Growth Strategy</div>
+                <div class="metric-value">Anthropic&#39;s future growth is supported by ongoing product innovations, such as the development of new Claude models, expansions into international markets, and commitments to rigorous AI safety standards. Hiring trends indicate a focus on strengthening research and technical teams to meet increased demand for responsible AI solutions, creating pathways for collaboration and market presence in fields that prioritize AI safety.</div>
+            </div>
+        </div>
+
+        <!-- Technical Capabilities -->
+        <div class="section">
+            <h2 class="section-title">Technical Capabilities</h2>
+            <div class="grid-container">
+                <div class="metric-card">
+                    <div class="metric-title">Technology Stack</div>
+                    <div>
+                        
+                        <span class="tech-tag">Machine Learning</span>
+                        
+                        <span class="tech-tag">Python</span>
+                        
+                    </div>
+                </div>
+                <div class="metric-card">
+                    <div class="metric-title">Technical Challenges</div>
+                    <ul>
+                        
+                        <li>Ensuring consistent reliability across diverse AI use cases while managing growth.</li>
+                        
+                        <li>Integrating advanced safety protocols within existing frameworks to maintain compliance with regulatory standards.</li>
+                        
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Organization -->
+        <div class="section">
+            <h2 class="section-title">Organizational Structure</h2>
+            <div class="highlight-box">
+                <ul>
+                    
+                    <li>Technical Team (Engineering and Research)</li>
+                    
+                    <li>Communications &amp; Marketing</li>
+                    
+                </ul>
+            </div>
+        </div>
+
+        <!-- SWOT Analysis -->
+        <div class="section">
+            <h2 class="section-title">Strategic Analysis</h2>
+            <div class="grid-container">
+                <div class="metric-card">
+                    <div class="metric-title">Market Opportunities</div>
+                    <ul>
+                        
+                        <li>Expansion into international markets presents growth avenues for widely accepted AI solutions.</li>
+                        
+                        <li>Collaborations with regulatory bodies could enhance compliance and bolster trust in AI systems.</li>
+                        
+                        <li>Investment in technology enhancements for improved AI model capabilities, particularly around safety and user trust.</li>
+                        
+                        <li>The focus on AI interpretability and responsible practices may offer a unique market position against competitors.</li>
+                        
+                    </ul>
+                </div>
+                <div class="metric-card">
+                    <div class="metric-title">Risk Assessment</div>
+                    <ul>
+                        
+                        <li>Competition from established AI firms may challenge Anthropic&#39;s market share.</li>
+                        
+                        <li>Evolving AI regulations could pose operational constraints that affect product deployment.</li>
+                        
+                        <li>Technical hurdles in maintaining AI reliability and safety across diverse applications.</li>
+                        
+                        <li>Scalability challenges related to integrating rapidly advancing AI technologies.</li>
+                        
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Purchase Intelligence -->
+        <div class="section">
+            <h2 class="section-title">Purchase Intelligence</h2>
+            <div class="grid-container">
+                <div class="metric-card">
+                    <div class="metric-title">Technology Needs</div>
+                    <ul>
+                        
+                        <li>Enhanced machine learning frameworks for developing AI safety practices.</li>
+                        
+                        <li>Robust AI model testing environments to ensure reliability and integrity.</li>
+                        
+                    </ul>
+                </div>
+                <div class="metric-card">
+                    <div class="metric-title">Service Needs</div>
+                    <ul>
+                        
+                        <li>Consulting focusing on AI ethics and deployment strategies.</li>
+                        
+                        <li>Professional development for team members on rapidly changing AI technologies.</li>
+                        
+                    </ul>
+                </div>
+                <div class="metric-card">
+                    <div class="metric-title">Infrastructure Needs</div>
+                    <ul>
+                        
+                        <li>Cloud services (AWS, GCP) for scalability and performance management.</li>
+                        
+                        <li>Security compliance measures in accordance with industry standards.</li>
+                        
+                    </ul>
+                </div>
+                <div class="metric-card">
+                    <div class="metric-title">Talent Needs</div>
+                    <ul>
+                        
+                        <li>Expertise in AI safety engineering and large language models.</li>
+                        
+                        <li>Training programs for existing staff on emerging AI technologies.</li>
+                        
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="section">
+            <h2 class="section-title">Investment History</h2>
+            <div class="funding-timeline">
+                
+            </div>
+        </div>
+
+        
+        <div class="section">
+            <h2 class="section-title">Hiring Intelligence</h2>
+            
+            <div class="job-card">
+                <div class="job-title">Member of Technical Staff - Technical Team</div>
+                <div class="job-meta">
+                    <span>📍 San Francisco, CA / Remote</span>
+                    <span>🎯 Not specified</span>
+                    <span>💰 Competitive salary and equity packages</span>
+                </div>
+                <p>Join a multidisciplinary team focused on advancing AI safely. Engage in both engineering and research to tackle complex challenges in AI technology.</p>
+
+                
+                <div class="metric-title">Required Skills</div>
+                <ul>
+                    
+                    <li>Machine Learning</li>
+                    
+                    <li>Python</li>
+                    
+                    <li>Research Engineering</li>
+                    
+                    <li>Collaboration</li>
+                    
+                    <li>Empirical Problem Solving</li>
+                    
+                    <li>Communication</li>
+                    
+                </ul>
+                
+
+                
+                <div class="metric-title">Key Responsibilities</div>
+                <ul>
+                    
+                    <li>Conduct research on AI systems</li>
+                    
+                    <li>Develop and improve machine learning models</li>
+                    
+                    <li>Collaborate with team members across disciplines</li>
+                    
+                    <li>Engage in empirical approaches to problem solving</li>
+                    
+                    <li>Write, run, and debug code</li>
+                    
+                </ul>
+                
+            </div>
+            
+            <div class="job-card">
+                <div class="job-title">Brand Designer, Events - Communications &amp; Marketing</div>
+                <div class="job-meta">
+                    <span>📍 San Francisco, CA | New York City, NY | Seattle, WA</span>
+                    <span>🎯 Not specified</span>
+                    <span>💰 Not specified</span>
+                </div>
+                <p>The Brand Designer, Events will lead the design and execution of branding for events, ensuring cohesive branding that aligns with the company&#39;s vision.</p>
+
+                
+                <div class="metric-title">Required Skills</div>
+                <ul>
+                    
+                    <li>Graphic Design</li>
+                    
+                    <li>Brand Strategy</li>
+                    
+                    <li>Adobe Creative Suite</li>
+                    
+                    <li>Event Marketing</li>
+                    
+                    <li>Visual Communication</li>
+                    
+                </ul>
+                
+
+                
+                <div class="metric-title">Key Responsibilities</div>
+                <ul>
+                    
+                    <li>Develop branding concepts for events</li>
+                    
+                    <li>Work closely with event teams to create event-specific designs</li>
+                    
+                    <li>Ensure consistency of brand identity across all events</li>
+                    
+                    <li>Collaborate with marketing teams to align event branding with overall marketing strategy</li>
+                    
+                </ul>
+                
+            </div>
+            
+        </div>
+        
+    </div>
+</body>
+
+</html>
