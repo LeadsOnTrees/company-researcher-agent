@@ -2,7 +2,7 @@ import asyncio
 import logging
 from typing import Set
 from company_researcher.scrapers.scraper import Scraper, ScraperException
-from company_researcher.models.models import Response
+from company_researcher.models import Response
 
 
 logger = logging.getLogger(__name__)

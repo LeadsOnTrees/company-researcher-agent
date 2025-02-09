@@ -1,6 +1,6 @@
 from pydantic import BaseModel, Field
 
-from company_researcher.models.models import Response
+from company_researcher.models import Response
 from company_researcher.modules.ai.llm import AI
 
 
