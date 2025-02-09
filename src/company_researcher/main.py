@@ -1,5 +1,5 @@
 from collections import defaultdict
-from company_researcher.models.models import Response
+from company_researcher.models import Report, Response
 from company_researcher.modules.apis.lot_funding import LeadsOnTreesClient
 from company_researcher.modules.prompts.career_generator import CareersInfoGenerator
 from company_researcher.modules.prompts.company_description import (
@@ -25,11 +25,13 @@ class CompanyResearcher:
         max_depth: int = 5,
         max_concurrent: int = 8,
         max_results: int = 100,
+        generate_pdf: bool = True,
     ) -> None:
         self.url = url
         self.max_depth = max_depth
         self.max_concurrent = max_concurrent
         self.max_results = max_results
+        self.generate_pdf = generate_pdf
 
     async def deep_crawl(self, url: str) -> list[Response]:
         worker = ScraperWorker(
@@ -59,7 +61,7 @@ class CompanyResearcher:
             page_types[page_type].append(response)
         return page_types
 
-    async def research(self) -> None:
+    async def research(self) -> Report:
         logger.info("Starting deep crawl for URL: %s", self.url)
         responses = await self.deep_crawl(self.url)
         logger.info("Found %d responses", len(responses))
@@ -97,14 +99,23 @@ class CompanyResearcher:
         company_description = await company_description_generator.generate()
         logger.info("Generated company description")
 
-        # Generate PDF report.
-        logger.info("Generating PDF report")
-        pdf_generator = PDFReport(
-            report_title, company_description, careers_info, funding_data
+        report = Report(
+            title=report_title,
+            company_description=company_description,
+            careers_info=careers_info,
+            funding_data=funding_data,
         )
-        pdf_path = await pdf_generator.generate()
-        logger.info("PDF report generated: %s", pdf_path)
 
-        # Open the generated PDF report.
-        logger.info("Opening PDF report")
-        pdf_generator.open()
+        if self.generate_pdf:
+            # Generate PDF report.
+            logger.info("Generating PDF report")
+            pdf_generator = PDFReport(report)
+
+            pdf_path = await pdf_generator.generate()
+            logger.info("PDF report generated: %s", pdf_path)
+
+            # Open the generated PDF report.
+            logger.info("Opening PDF report")
+            pdf_generator.open()
+
+        return report

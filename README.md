@@ -55,6 +55,21 @@ uv run research https://example.com --max-results 30
 However, the more pages you scrape the more data LLM will have to give you better insights.
 
 
+Installing:
+
+```
+pip install git+https://github.com/LeadsOnTrees/company-researcher-agent.git
+```
+
+And then running
+
+```python
+from company_researcher import CompanyResearcher
+
+researcher = CompanyResearcher(url="https://example.com")
+report = await researcher.research()
+```
+
 # What is LeadsOnTrees?
 
 LeadsOnTrees is a platform which aggregates all VC funded startups and their founders.

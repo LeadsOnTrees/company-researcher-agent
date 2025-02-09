@@ -5,29 +5,24 @@ import webbrowser
 
 from pathlib import Path
 
-from company_researcher.models.models import FundingData
-from company_researcher.modules.prompts.career_generator import JobDescription
-from company_researcher.modules.prompts.company_description import CompanyDescription
+from company_researcher.models import Report
 
 
 class PDFReport:
     def __init__(
         self,
-        title: str,
-        company_description: CompanyDescription,
-        careers: list[JobDescription],
-        funding_data: list[FundingData],
+        report: Report,
         filename=None,
     ):
         base_filename = (
             filename or f"company_report_{datetime.now().strftime('%Y%m%d_%H%M%S')}"
         )
-        self.title = title
+        self.title = report.title
         self.html_path = str(Path.cwd() / "reports" / f"{base_filename}.html")
         self.pdf_path = str(Path.cwd() / "reports" / f"{base_filename}.pdf")
-        self.company_description = company_description
-        self.careers = careers
-        self.funding_data = funding_data
+        self.company_description = report.company_description
+        self.careers = report.careers_info
+        self.funding_data = report.funding_data
 
     def _generate_html(self):
         """Generate HTML report using Jinja2 template"""

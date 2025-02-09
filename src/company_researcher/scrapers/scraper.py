@@ -3,7 +3,7 @@ from playwright.async_api import async_playwright, Page, Response as PlaywrightR
 from tenacity import retry, stop_after_attempt, wait_exponential
 import asyncio
 
-from company_researcher.models.models import Response
+from company_researcher.models import Response
 from company_researcher.scrapers.parser import Parser
 
 logger = logging.getLogger(__name__)
