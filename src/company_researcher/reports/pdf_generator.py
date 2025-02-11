@@ -24,15 +24,19 @@ class PDFReport:
         self.careers = report.careers_info
         self.funding_data = report.funding_data
 
+        current_dir = Path(__file__).parent
+        templates_dir = current_dir / "templates"
+
+        self.env = Environment(
+            loader=FileSystemLoader(templates_dir),
+            autoescape=True
+        )
+
     def _generate_html(self):
         """Generate HTML report using Jinja2 template"""
         Path(self.html_path).parent.mkdir(parents=True, exist_ok=True)
 
-        jinja_env = Environment(
-            loader=FileSystemLoader("src/company_researcher/reports/templates"),
-            autoescape=True,
-        )
-        template = jinja_env.get_template("report.html")
+        template = self.env.get_template("report.html")
         html_content = template.render(
             title=self.title,
             company=self.company_description,
