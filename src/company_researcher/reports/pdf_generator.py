@@ -27,10 +27,7 @@ class PDFReport:
         current_dir = Path(__file__).parent
         templates_dir = current_dir / "templates"
 
-        self.env = Environment(
-            loader=FileSystemLoader(templates_dir),
-            autoescape=True
-        )
+        self.env = Environment(loader=FileSystemLoader(templates_dir), autoescape=True)
 
     def _generate_html(self):
         """Generate HTML report using Jinja2 template"""
