@@ -45,6 +45,9 @@ class AI:
 
     def _determine_provider(self) -> LLMProvider:
         """Determine which LLM provider to use based on available API keys"""
+        if config.LLM_PROVIDER:
+            return LLMProvider(config.LLM_PROVIDER)
+
         for provider, _config in LLMConfig.PROVIDERS.items():
             if _config["api_key"]:
                 return provider

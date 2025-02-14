@@ -1,3 +1,4 @@
+from typing import Literal
 from pydantic import model_validator
 from pydantic_settings import BaseSettings
 
@@ -9,7 +10,8 @@ class Settings(BaseSettings):
 
     LEADSONTREES_API_KEY: str | None = None
 
-    LLM_MODEL: str = "gpt-4o-mini"
+    LLM_MODEL: str = "models/gemini-2.0-flash"
+    LLM_PROVIDER: Literal["openai", "deepseek", "google"] = "google"
 
     @model_validator(mode="after")
     def validate_llm_api_keys(self):
