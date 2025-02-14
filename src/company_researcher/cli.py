@@ -2,7 +2,7 @@ import asyncio
 import typer
 from company_researcher.main import CompanyResearcher
 
-app = typer.Typer()
+app = typer.Typer(pretty_exceptions_enable=False)
 
 
 @app.command()

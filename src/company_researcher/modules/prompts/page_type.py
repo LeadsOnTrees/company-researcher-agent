@@ -5,7 +5,7 @@ from company_researcher.modules.ai.llm import AI
 
 
 class PageType(BaseModel):
-    type_: Literal["home", "blog", "contact", "about", "career", None]
+    type_: Literal["home", "blog", "contact", "about", "career"] | None = None
 
 
 PAGE_TYPE_PROMPT = {

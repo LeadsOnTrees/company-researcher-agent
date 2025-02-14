@@ -6,11 +6,12 @@ readme = "README.md"
 requires-python = ">=3.10"
 dependencies = [
     "beautifulsoup4>=4.12.3",
-    "instructor>=1.7.2",
+    "instructor[google-generativeai]>=1.7.2",
     "jinja2>=3.1.5",
     "playwright>=1",
     "pydantic>=2.10.6",
     "pydantic-settings>=2.7.1",
+    "ruff>=0.9.4",
     "tenacity>=9.0.0",
 ]
 
